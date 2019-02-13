@@ -5,20 +5,24 @@ const fetchDeckOfCards = require('../api/Api.js')
 
 module.exports = class State {
 	constructor(deck, player='Player1') {
-		this.users = [new User(player), new User('Magnus', true)]
-		this.winner = null
+		this.users = [new User('Magnus', true), new User(player)]
 		this.deck = deck
+		this.winner = null
+		this.finished = false
 		this.initialize()
 	}
 
 	initialize() {
-		this.users.map(user => {
-			user.hand = this.dealFirstHand()
-			if (user.hasBlackJack) {
-				this.winner = user
-				return
-			}
-		})
+		this.users.map(user => user.hand = this.dealFirstHand())
+		const winners  = this.users.filter(it => it.hasBlackJack)
+		if (winners.length > 0) {
+			this.winner = winners[0]
+			this.finished = true
+			
+			// Can possibly be neater
+			console.log(`Vinner: ${this.winner.playerName}`)
+			this.users.map(it => console.log(it.displayUserState))
+		}
 	}
 
 	dealFirstHand(inverted = false) {

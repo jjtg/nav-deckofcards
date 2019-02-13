@@ -20,4 +20,8 @@ module.exports = class User {
 	get displayHand() {
 		return this.hand.map(it => it.displayString).join()
 	}
+
+	get displayUserState() {
+		return `${this.playerName} | ${this.handValue} | ${this.displayHand}`
+	}
 }
