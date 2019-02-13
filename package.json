@@ -1,0 +1,24 @@
+{
+  "name": "nav-deckofcards",
+  "version": "1.0.0",
+  "description": "Kodeoppgave for NAV IKT",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjtg/nav-deckofcards.git"
+  },
+  "author": "J. Julian Torp G.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjtg/nav-deckofcards/issues"
+  },
+  "homepage": "https://github.com/jjtg/nav-deckofcards#readme",
+  "devDependencies": {
+    "jest": "^24.1.0",
+    "supertest": "^3.4.2"
+  }
+}
