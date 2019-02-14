@@ -22,6 +22,6 @@ module.exports = class User {
 	}
 
 	get displayUserState() {
-		return `${this.playerName} | ${this.handValue} | ${this.displayHand}`
+		return `${this.playerName}\t| ${this.handValue}\t| ${this.displayHand}`
 	}
 }
