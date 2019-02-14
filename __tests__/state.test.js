@@ -1,14 +1,5 @@
-const State = require('../models/State')
-const Card = require('../models/Card')
-
-beforeAll(() => {
-    console.log('testing game state class')
-
-})
-
-afterAll(() => {
-    console.log('game state class test complete')
-})
+const State = require('../src/models/State')
+const Card = require('../src/models/Card')
 
 // Deck that starts with winner
 const testDeck = [
@@ -20,9 +11,8 @@ new Card({value: "J", suit: "DIAMONDS"})
 
 
 // TODO - maps are inverting order, look into it. 
-// Probably a pop() shifting the array order.
-describe('Basic User Test', async () => {
-	const state = new State(testDeck)
+describe('State Class Test', async () => {
+	const state = new State(testDeck, 'Player1', true)
     test('player should win', () => expect(state.winner.playerName).toContain('Player1'))
     test('game state should be finished', () => expect(state.finished).toBe(true))
 })

@@ -1,14 +1,12 @@
 const Koa = require("koa")
 const Router = require("koa-router")
-
-const fetchDeckOfCards = require('./api/Api.js')
-
-const State = require('./models/State.js')
-const Card = require('./models/Card.js')
-
 const app = new Koa()
 const router = new Router()
 
+const Card = require('../models/Card')
+const State = require('../models/State')
+
+const fetchDeckOfCards = require('../api/Api')
 
 router.get('/about', (ctx, next) => {
     ctx.body = {
@@ -18,7 +16,7 @@ router.get('/about', (ctx, next) => {
 })
 
 router.get('/', async (ctx, next) => {
-    let deck
+    let deck = []
     await fetchDeckOfCards()
         .then(res => deck = res.data.map(it => new Card(it)))
         .catch(console.error)
@@ -29,18 +27,10 @@ router.get('/', async (ctx, next) => {
     }
 })
 
-async function startGame() {
-    let deck
-    await fetchDeckOfCards()
-        .then(res => deck = res.data.map(it => new Card(it)))
-        .catch(console.error)
-    const state = new State(deck)
-}
-
-startGame()
-
 app.use(router.routes())
 app.use(router.allowedMethods())
-const server = app.listen(3000)
+
+const server = app.listen(8080)
 
 module.exports = server
+

@@ -1,14 +1,5 @@
-const User = require('../models/User')
-const Card = require('../models/Card')
-
-beforeAll(() => {
-    console.log('testing user class')
-
-})
-
-afterAll(() => {
-    console.log('user class test complete')
-})
+const User = require('../src/models/User')
+const Card = require('../src/models/Card')
 
 describe('Basic User Test', () => {
 	const testUser = new User('TestUser', false)
@@ -20,10 +11,16 @@ describe('Basic User Test', () => {
     test('user should keep playing', () => expect(testUser.keepPlaying).toBe(true))
 })
 
+describe('Initial Unlucky User Test', () => {
+	const unluckyUser = new User('UnluckyUser', false)
+	unluckyUser.hand = [new Card({value: "A", suit: "DIAMONDS"}), new Card({value: "Q", suit: "CLUBS"}), new Card({value: "Q", suit: "DIAMONDS"})]
+	test('user should have lost game', () => expect(unluckyUser.lostGame).toBe(true))
+})
+
 describe('Initial BlackJack User Test', () => {
 	const luckyUser = new User('LuckyUser', false)
 	luckyUser.hand = [new Card({value: "A", suit: "DIAMONDS"}), new Card({value: "Q", suit: "CLUBS"})]
 
 	test('user should have BlackJack', () => expect(luckyUser.hasBlackJack).toBe(true))
-	test('user shoudl not keep playing', () => expect(luckyUser.keepPlaying).toBe(false))
+	test('user should not keep playing', () => expect(luckyUser.keepPlaying).toBe(false))
 })
