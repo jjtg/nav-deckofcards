@@ -1,14 +1,5 @@
 const request = require('supertest')
-const server = require('../app.js')
-
-beforeAll(() => {
-    console.log('running tests')
-})
-
-afterAll(() => {
-    server.close()
-    console.log('tests done')
-})
+const server = require('../src/routes/routes.js')
 
 describe('basic route tests', () => {
     test('GET /about should return description', async () => {

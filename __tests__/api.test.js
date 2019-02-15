@@ -1,22 +1,13 @@
-const fetchDeckOfCards = require('../api/Api.js')
+const fetchDeckOfCards = require('../src/api/Api.js')
 
-beforeAll(() => {
-    console.log('testing & validating endpoint')
-})
-
-afterAll(() => {
-    console.log('test & validation complete')
-})
-
-describe('api tests', () => {
+describe('Api Connectivity Test & Validation', () => {
     test('get deck of cards', async () => {
-    	const response = await fetchDeckOfCards()
+		expect.assertions(2)
+    	await fetchDeckOfCards()
     	.then(res => {
     		expect(res.status).toBe(200)
     		expect(res.data.length).toBe(52)
     	})
     	.catch(console.error)
     })
-
-
 })

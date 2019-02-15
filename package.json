@@ -2,9 +2,9 @@
   "name": "nav-deckofcards",
   "version": "1.0.0",
   "description": "Kodeoppgave for NAV IKT",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest --watchAll --verbose",
     "dev": "nodemon app.js"
   },
   "repository": {
@@ -20,5 +20,10 @@
   "devDependencies": {
     "jest": "^24.1.0",
     "supertest": "^3.4.2"
+  },
+  "dependencies": {
+    "koa": "latest",
+    "axios": "latest",
+    "koa-router": "latest"
   }
 }

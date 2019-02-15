@@ -1,12 +1,4 @@
-const getActiveEndpoint = require('../api/ServiceDiscovery.js')
-
-beforeAll(async () => {
-    console.log('testing mock service discovery')
-})
-
-afterAll(()=>{
-    console.log('service discovery ok')
-})
+const getActiveEndpoint = require('../src/api/ServiceDiscovery.js')
 
 describe('service discovery mock', () => {
     test('service returns actual endpoint', async () => {
