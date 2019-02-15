@@ -7,7 +7,7 @@ describe('Basic User Test', () => {
 
     test('user hand should have value 4', () => expect(testUser.handValue).toEqual(4))
     test('user hand string should be parsed correctly', () => expect(testUser.displayHand).toBe('D2,C2'))
-	test('user state string should be parsed correctly', () => expect(testUser.displayUserState).toBe("TestUser\t| 4\t| D2,C2"))
+	test('user state string should be parsed correctly', () => expect(testUser.displayUserState).toBe("TestUser\t|\t4\t|\tD2,C2"))
     test('user should keep playing', () => expect(testUser.keepPlaying).toBe(true))
 })
 

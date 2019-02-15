@@ -11,10 +11,13 @@ module.exports = class State {
     }
 
     initialize() {
-        this.users.map(user => user.hand = this.dealFirstHand())
+        const { user, npc } = this.fetchUserAndNpc()
+        user.hand = this.dealFirstHand()
+        npc.hand = this.dealFirstHand()
+
         const winners = this.users.filter(it => it.hasBlackJack)
         if (winners.length > 0) {
-            this.winner = winners[0]
+            this.winner = winners.length > 1 ? { playerName: 'Uavgjort' } : winners[0]
             this.finished = true
             this.displayFinishedGameState()
         }
@@ -47,5 +50,12 @@ module.exports = class State {
     dealFirstHand(inverted = false) {
         if (inverted) return [this.deck.shift(), this.deck.shift()]
         return [this.deck.pop(), this.deck.pop()]
+    }
+
+    // NB! Not returns only first element
+    fetchUserAndNpc() {
+        const user = this.users.filter(it => !it.isNpc)[0]
+        const npc = this.users.filter(it => it.isNpc)[0]
+        return { user, npc }
     }
 }

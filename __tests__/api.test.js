@@ -2,6 +2,7 @@ const fetchDeckOfCards = require('../src/api/Api.js')
 
 describe('Api Connectivity Test & Validation', () => {
     test('get deck of cards', async () => {
+		expect.assertions(2)
     	await fetchDeckOfCards()
     	.then(res => {
     		expect(res.status).toBe(200)
@@ -9,6 +10,4 @@ describe('Api Connectivity Test & Validation', () => {
     	})
     	.catch(console.error)
     })
-
-
 })
