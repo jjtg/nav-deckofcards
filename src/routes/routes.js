@@ -33,7 +33,12 @@ router.get('/blackjack', async (ctx) => {
             gameState: gameState
         }
     } catch (err) {
-       console.error(err)
+        console.error(err)
+        ctx.status = 500
+        ctx.body = {
+            successful: false,
+            message: err.message
+        }
     }
 })
 
@@ -58,6 +63,11 @@ router.post('/blackjack', async (ctx) => {
             })
     } catch (err) {
         console.error(err)
+        ctx.status = 500
+        ctx.body = {
+            successful: false,
+            message: err.message
+        }
     }
 })
 
