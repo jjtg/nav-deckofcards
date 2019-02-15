@@ -1,5 +1,4 @@
 const User = require('./User')
-const Card = require('./Card')
 
 module.exports = class State {
     constructor(deck, player = 'Player1', supressConsoleLogs = false, entity) {
@@ -12,8 +11,6 @@ module.exports = class State {
             this.initialize()
         } else {
             Object.keys(entity).map(key => this[key] = entity[key])
-/*            if (this.users) this.users = entity.users.map(user => new User(null, false, user)) || []
-            if (this.deck)  this.deck = entity.deck.map(card => new Card(card)) || []*/
         }
     }
 
@@ -64,7 +61,7 @@ module.exports = class State {
         return [this.deck.pop(), this.deck.pop()]
     }
 
-    // NB! Not returns only first element
+    // NB! Returns only first entity
     fetchUserAndNpc() {
         const user = this.users.filter(it => !it.isNpc)[0]
         const npc = this.users.filter(it => it.isNpc)[0]
