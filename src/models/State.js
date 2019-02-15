@@ -1,13 +1,20 @@
 const User = require('./User')
+const Card = require('./Card')
 
 module.exports = class State {
-    constructor(deck, player = 'Player1', supressConsoleLogs = false) {
-        this.users = [new User('Magnus', true), new User(player)]
-        this.deck = deck
-        this.winner = null
-        this.finished = false
-        this.supressConsoleLogs = supressConsoleLogs
-        this.initialize()
+    constructor(deck, player = 'Player1', supressConsoleLogs = false, entity) {
+        if (!entity) {
+            this.users = [new User('Magnus', true), new User(player)]
+            this.deck = deck
+            this.winner = null
+            this.finished = false
+            this.supressConsoleLogs = supressConsoleLogs
+            this.initialize()
+        } else {
+            Object.keys(entity).map(key => this[key] = entity[key])
+/*            if (this.users) this.users = entity.users.map(user => new User(null, false, user)) || []
+            if (this.deck)  this.deck = entity.deck.map(card => new Card(card)) || []*/
+        }
     }
 
     initialize() {
@@ -16,8 +23,13 @@ module.exports = class State {
         npc.hand = this.dealFirstHand()
 
         const winners = this.users.filter(it => it.hasBlackJack)
+        const losers = this.users.filter(it => it.lostGame)
         if (winners.length > 0) {
             this.winner = winners.length > 1 ? { playerName: 'Uavgjort' } : winners[0]
+            this.finished = true
+            this.displayFinishedGameState()
+        } else if (losers.length > 0) {
+            this.winner = this.users.filter(it => it.handValue !== losers[0].handValue)[0]
             this.finished = true
             this.displayFinishedGameState()
         }

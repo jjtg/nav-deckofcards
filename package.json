@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "test": "jest --watchAll --verbose",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "api": "nodemon src/routes/routes.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +23,10 @@
     "supertest": "^3.4.2"
   },
   "dependencies": {
-    "koa": "latest",
     "axios": "latest",
-    "koa-router": "latest"
+    "koa": "latest",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "latest",
+    "nodemon": "^1.18.10"
   }
 }

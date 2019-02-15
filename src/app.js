@@ -9,10 +9,10 @@ const Card = require('./models/Card')
  * Fetches new deck of card and creates state or uses testState.
  * Returns test state if testEnv is true.
  * advances game until the game finishes.
- * @param testEnv
+ * @param returnState
  * @param initState
  */
-const startGame = async (testEnv = false, initState) => {
+const startGame = async (returnState = false, initState) => {
     let deck = []
     await fetchDeckOfCards()
         .then(res => deck = res.data.map(it => new Card(it)))
@@ -20,12 +20,11 @@ const startGame = async (testEnv = false, initState) => {
 
     // initState for testing purposes
     const state = initState || new State(deck)
-    if (!testEnv){
+    if (!returnState) {
         while (!state.finished) {
             advanceGame(state)
         }
-    }
-    else return state
+    } else return state
 }
 
 /**
@@ -37,7 +36,7 @@ const startGame = async (testEnv = false, initState) => {
  * @returns {*}
  */
 const advanceGame = (state) => {
-    const { user, npc } = state.fetchUserAndNpc()
+    const {user, npc} = state.fetchUserAndNpc()
 
     if (user.keepPlaying) {
         user.hand.push(state.deck.pop())
