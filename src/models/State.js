@@ -16,8 +16,13 @@ module.exports = class State {
         npc.hand = this.dealFirstHand()
 
         const winners = this.users.filter(it => it.hasBlackJack)
+        const losers = this.users.filter(it => it.lostGame)
         if (winners.length > 0) {
             this.winner = winners.length > 1 ? { playerName: 'Uavgjort' } : winners[0]
+            this.finished = true
+            this.displayFinishedGameState()
+        } else if (losers.length > 0) {
+            this.winner = this.users.filter(it => it.handValue !== losers[0].handValue)[0]
             this.finished = true
             this.displayFinishedGameState()
         }
