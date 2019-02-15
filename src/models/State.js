@@ -1,13 +1,20 @@
 const User = require('./User')
+const Card = require('./Card')
 
 module.exports = class State {
-    constructor(deck, player = 'Player1', supressConsoleLogs = false) {
-        this.users = [new User('Magnus', true), new User(player)]
-        this.deck = deck
-        this.winner = null
-        this.finished = false
-        this.supressConsoleLogs = supressConsoleLogs
-        this.initialize()
+    constructor(deck, player = 'Player1', supressConsoleLogs = false, entity) {
+        if (!entity) {
+            this.users = [new User('Magnus', true), new User(player)]
+            this.deck = deck
+            this.winner = null
+            this.finished = false
+            this.supressConsoleLogs = supressConsoleLogs
+            this.initialize()
+        } else {
+            Object.keys(entity).map(key => this[key] = entity[key])
+/*            if (this.users) this.users = entity.users.map(user => new User(null, false, user)) || []
+            if (this.deck)  this.deck = entity.deck.map(card => new Card(card)) || []*/
+        }
     }
 
     initialize() {

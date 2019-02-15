@@ -5,3 +5,5 @@
 *Tests*:`$ npm run test`
 
 *Console*:`$ npm run dev`
+
+*API*: `$ npm run api`

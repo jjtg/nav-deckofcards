@@ -1,8 +1,16 @@
+const Card = require('./Card')
+
 module.exports = class User {
-	constructor(name, npc = false) {
-		this.playerName = name
-		this.isNpc = npc
-		this.hand = []
+	constructor(name, npc = false, entity) {
+		if (!entity){
+			this.playerName = name
+			this.isNpc = npc
+			this.hand = []
+		} else {
+			this.playerName = entity.playerName
+			this.isNpc = entity.isNpc
+			this.hand = entity.hand || []
+		}
 	}
 
 	get handValue() {
