@@ -67,10 +67,6 @@ const processEndGame = (winner, state) => {
     state.displayFinishedGameState()
 }
 
-if (require.main === module) {
-    startGame()
-}
-
 module.exports = {
     startGame: startGame,
     advanceGame: advanceGame
