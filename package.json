@@ -2,11 +2,15 @@
   "name": "nav-deckofcards",
   "version": "1.0.0",
   "description": "Kodeoppgave for NAV IKT",
-  "main": "src/app.js",
+  "private": true,
   "scripts": {
     "test": "jest --watchAll --verbose",
-    "dev": "nodemon app.js",
-    "api": "nodemon src/routes/routes.js"
+    "dev": "npm-run-all --parallel watch:server watch:build",
+    "api": "npm-run-all --parallel watch:api-server watch:build-api",
+    "watch:build": "webpack --progress --watch",
+    "watch:build-api": "webpack --progress --colors --watch --config webpack.api.config.js",
+    "watch:server": "nodemon ./build/app/app-bundle.js --watch ./build/app",
+    "watch:api-server": "nodemon ./build/api/api-bundle.js --watch ./build/api"
   },
   "repository": {
     "type": "git",
@@ -20,7 +24,10 @@
   "homepage": "https://github.com/jjtg/nav-deckofcards#readme",
   "devDependencies": {
     "jest": "^24.1.0",
-    "supertest": "^3.4.2"
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
     "axios": "latest",
