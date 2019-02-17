@@ -30,6 +30,7 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "axios": "latest",
     "koa": "latest",
     "koa-bodyparser": "^4.2.1",
