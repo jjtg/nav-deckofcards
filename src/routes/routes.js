@@ -1,4 +1,5 @@
 const Koa = require('koa')
+const Cors = require('@koa/cors')
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
 
@@ -28,6 +29,7 @@ router.get('/about', (ctx, next) => {
 router.get('/blackjack', async (ctx) => {
     try {
         const gameState = await app.startGame(true)
+        setUserPayload(gameState)
         ctx.body = {
             successful: true,
             gameState: gameState
@@ -49,9 +51,11 @@ router.post('/blackjack', async (ctx) => {
     try {
         convertBodyToDto(ctx.request.body.gameState)
             .then(state => {
+                const advancedState = app.advanceGame(state)
+                setUserPayload(advancedState)
                 ctx.body = {
                     successful: true,
-                    gameState: app.advanceGame(state)
+                    gameState: advancedState
                 }
             })
             .catch(err => {
@@ -74,14 +78,18 @@ router.post('/blackjack', async (ctx) => {
 async function convertBodyToDto(state) {
     state.users = state.users.map(user => {
         user.hand = user.hand.map(card => new Card(card))
-        return new User(null,null,user)
+        return new User(null, null, user)
     })
     state.deck = state.deck.map(card => new Card(card))
-    return new State(null, null, null, state)
+    return new State(null, null, true, state)
 }
 
+function setUserPayload(state) {
+    state.users.forEach(user => user.payload())
+}
 
 api.use(bodyParser())
+api.use(Cors())
 api.use(router.routes())
 api.use(router.allowedMethods())
 
